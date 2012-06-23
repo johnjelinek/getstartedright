@@ -1,19 +1,45 @@
 <head>
-  <title>getstartedright</title>
+  <title>The Game Plan</title>
 </head>
 
 <body>
-  <div>
-    {{> gameplan}}
+  <div class="container-fluid">
+    <div class="row-fluid">
+      {{> gameplan}}
+    </div>
   </div>
 </body>
 
 <template name="gameplan">
-  {{#each steps}}
-    {{> step}}
-  {{/each}}
+  <h1>{{greeting}}</h1>
+  <div class="span1">
+    <div class="well sidebar-nav">
+      <ul class="nav nav-list">
+        <li class="nav-header">U*</li>
+      </ul>
+    </div>
+  </div>
+  <div class="span7">
+    <div class="well">
+      {{#each steps}}
+        {{> step}}
+      {{/each}}
+    </div>
+  </div>
+  <div class="span3">
+    <div class="well sidebar-nav">
+      <ul class="nav nav-list">
+        <li class="nav-header">Accountability</li>
+      </ul>
+    </div>
+  </div>
 </template>
 
 <template name="step">
-  <h1>{{title}}</h1>
+  <h2>{{order}}. {{title}}</h2>
+  {{#each todos}}
+    <label class="checkbox">
+      <input type="checkbox"> {{this}}
+    </label>
+  {{/each}}
 </template>
