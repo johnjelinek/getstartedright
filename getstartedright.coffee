@@ -1,5 +1,6 @@
 Steps = new Meteor.Collection "Steps"
 
+
 if Meteor.is_client
   Template.hello.greeting = ->
     "Welcome to getstartedright."
@@ -21,4 +22,4 @@ if Meteor.is_server
     ]
 
     if Steps.find().count() is 0
-      Steps.insert {"step": step} for step in ['Be A Product of The Product']
+      Steps.insert {"title": step, "order": i + 1} for step, i in steps
