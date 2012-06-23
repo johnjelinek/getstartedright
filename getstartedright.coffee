@@ -2,13 +2,8 @@ Steps = new Meteor.Collection "Steps"
 
 
 if Meteor.is_client
-  Template.hello.greeting = ->
-    "Welcome to getstartedright."
-
-  Template.hello.events =
-    'click input': ->
-      # template data, if any, is available in 'this'
-      console.log "You pressed the button" if console?
+  Template.gameplan.steps = ->
+    Steps.find {}, {"sort": {"order": 1}}
 
 if Meteor.is_server
   Meteor.startup ->
