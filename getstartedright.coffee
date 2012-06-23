@@ -5,6 +5,25 @@ if Meteor.is_client
     #Load popovers
     $('#accountability').popover {'placement': 'left'}
 
+    counter = (futureDate) ->
+      today = new Date # today
+      count = Math.floor (futureDate - today) / 1000
+      countdown = setInterval ->
+        $("#d").html Math.floor count / ( 60 * 60 * 24 )
+        temp = count % ( 60 * 60 * 24 )
+        $("#h").html Math.floor temp / ( 60 * 60 )
+        temp = count % ( 60 * 60 )
+        $("#m").html Math.floor temp / 60
+        temp = count % 60
+        $("#s").html temp
+
+        counter new Date today.getFullYear(), today.getMonth(), today.getDate() + 1 if count isnt 0
+        count--
+      , 1000
+
+    today = new Date #today
+    counter new Date today.getFullYear(), today.getMonth(), today.getDate() + 1
+
   Template.gameplan.greeting = ->
     "Our core purpose is to help people achieve their goals and enjoy a healthy, fulfilling life. To achieve this core purpose, Team Beachbody Coaches engage in six core activities:"
 
