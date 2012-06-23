@@ -5,6 +5,7 @@ if Meteor.is_client
     #Load popovers
     $('#accountability').popover {'placement': 'left'}
 
+    ###
     counter = (futureDate) ->
       today = new Date # today
       count = Math.floor (futureDate - today) / 1000
@@ -23,12 +24,40 @@ if Meteor.is_client
 
     today = new Date #today
     counter new Date today.getFullYear(), today.getMonth(), today.getDate() + 1
+    ###
 
   Template.gameplan.greeting = ->
     "Our core purpose is to help people achieve their goals and enjoy a healthy, fulfilling life. To achieve this core purpose, Team Beachbody Coaches engage in six core activities:"
 
   Template.gameplan.steps = ->
     Steps.find {}, {"sort": {"order": 1}}
+
+  Template.gameplan.events = 
+    'click button': ->
+      myEmail = $('#myEmail').val()
+      sendToEmail = $('#sendToEmail').val()
+      myName = $('#myName').val()
+
+      if myEmail > "" and sendToEmail > "" and myName > ""
+        $.ajax {
+          "type": "POST",
+          "url": "https://mandrillapp.com/api/1.0/messages/send.json",
+          "data": {
+            "key": "5a95d1f1-4cec-4ac3-8d7e-e69d0748f3d9",
+            "message": {
+              "html": "Quality E-mail content is coming",
+              "text": "Quality E-mail content is coming",
+              "subject": "GamePlan Status Update",
+              "from_email": myEmail,
+              "from_name": "Game Plan App",
+              "to": [{"email": sendToEmail}]
+            }
+          }
+        }
+
+        $('#emailModal').modal()
+
+        false
 
 if Meteor.is_server
   Meteor.startup ->

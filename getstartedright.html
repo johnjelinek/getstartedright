@@ -8,6 +8,18 @@
       {{> gameplan}}
     </div>
   </div>
+  <div class="modal hide" id="emailModal">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">x</button>
+      <h3>Your Game Plan Update Has Been Sent</h3>
+    </div>
+    <div class="modal-body">
+      <p>Thanks for taking advantage of the online Game Plan tool. We have some pretty cool features come pretty soon.</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="btn" data-dismiss="modal">Close</a>
+    </div>
+  </div>
 </body>
 
 <template name="gameplan">
@@ -24,9 +36,9 @@
       <ul class="nav nav-list">
         <li id="accountability" class="nav-header" rel="popover" data-content="Simply provide your name/email and an email of your success partner and we'll make sure they get your results!" data-original-title="Share Your Progress With Your Success Partner">Accountability</li>
         <form>
-          <input type="text" class="input-small" placeholder="my name" required="required"/>
-          <input type="text" class="input-small" placeholder="my email" required="required"/>
-          <input type="text" class="input-small" placeholder="send to email" required="required"/>
+          <input type="text" id="myName" class="input-small" placeholder="my name" required="required"/>
+          <input type="text" id="myEmail" class="input-small" placeholder="my email" required="required"/>
+          <input type="text" id="sendToEmail" class="input-small" placeholder="send to email" required="required"/>
           <button type="submit" class="btn">Send an email</button>
         </form>
       </ul>
