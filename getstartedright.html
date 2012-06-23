@@ -1,5 +1,6 @@
 <head>
   <title>The Game Plan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 </head>
 
 <body>
@@ -14,7 +15,7 @@
       <h3>Your Game Plan Update Has Been Sent</h3>
     </div>
     <div class="modal-body">
-      <p>Thanks for taking advantage of the online Game Plan tool. We have some pretty cool features come pretty soon.</p>
+      <p>Thanks for taking advantage of the online Game Plan tool. We have some pretty cool features coming pretty soon.</p>
     </div>
     <div class="modal-footer">
       <a href="#" class="btn" data-dismiss="modal">Close</a>
@@ -53,10 +54,12 @@
 </template>
 
 <template name="step">
-  <h2>{{order}}. {{title}}</h2>
-  {{#each todos}}
-    <label class="checkbox">
-      <input type="checkbox"/> {{this}}
-    </label>
-  {{/each}}
+  <div class="step">
+    <h2>{{order}}. {{title}}</h2>
+    {{#each todos}}
+      <label class="checkbox">
+        <input type="checkbox" class="todo"/> {{this}}
+      </label>
+    {{/each}}
+  </div>
 </template>
