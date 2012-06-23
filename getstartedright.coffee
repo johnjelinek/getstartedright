@@ -41,16 +41,60 @@ if Meteor.is_client
       if myEmail > "" and sendToEmail > "" and myName > ""
         $.ajax {
           "type": "POST",
-          "url": "https://mandrillapp.com/api/1.0/messages/send.json",
+          "url": "https://mandrillapp.com/api/1.0/messages/send-template.json",
           "data": {
             "key": "5a95d1f1-4cec-4ac3-8d7e-e69d0748f3d9",
+            "template_name": "Game Plan Updates",
+            "template_content":[
+              {
+                "name": "schedule_time00",
+                "content": "Possible marks: 3"
+              }, {
+                "name": "schedule_title00",
+                "content": "Completed marks: 3"
+              }, {
+                "name": "schedule_time01",
+                "content": "Possible marks: 4"
+              }, {
+                "name": "schedule_title01",
+                "content": "Completed marks: 4"
+              }, {
+                "name": "schedule_time02",
+                "content": "Possible marks: 4"
+              }, {
+                "name": "schedule_title02",
+                "content": "Completed marks: 4"
+              }, {
+                "name": "schedule_time03",
+                "content": "Possible marks: 4"
+              }, {
+                "name": "schedule_title03",
+                "content": "Completed marks: 4"
+              }, {
+                "name": "schedule_time04",
+                "content": "Possible marks: 4"
+              }, {
+                "name": "schedule_title04",
+                "content": "Completed marks: 4"
+              }, {
+                "name": "schedule_time05",
+                "content": "Possible marks: 4"
+              }, {
+                "name": "schedule_title05",
+                "content": "Completed marks: 4"
+              }, {
+                "name": "lower_body_content",
+                "content": "Total Copleted marks: 23 out of 23"
+              }],
             "message": {
-              "html": "Quality E-mail content is coming",
-              "text": "Quality E-mail content is coming",
               "subject": "GamePlan Status Update",
-              "from_email": myEmail,
-              "from_name": "Game Plan App",
-              "to": [{"email": sendToEmail}]
+              "from_email": "admin@johnjelinek.com",
+              "from_name": myName,
+              "to": [{"email": sendToEmail}],
+              "headers": {"reply-to": myEmail},
+              "track_opens": true,
+              "track_clicks": true,
+              "auto_text": "true"
             }
           }
         }
