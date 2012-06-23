@@ -12,24 +12,29 @@
 
 <template name="gameplan">
   <h1>{{greeting}}</h1>
-  <div class="span1">
-    <div class="well sidebar-nav">
-      <ul class="nav nav-list">
-        <li class="nav-header">U*</li>
-      </ul>
-    </div>
-  </div>
-  <div class="span7">
+  <div class="span9">
     <div class="well">
       {{#each steps}}
         {{> step}}
       {{/each}}
     </div>
   </div>
-  <div class="span3">
+  <div class="span2">
     <div class="well sidebar-nav">
       <ul class="nav nav-list">
-        <li class="nav-header">Accountability</li>
+        <li id="accountability" class="nav-header" rel="popover" data-content="Simply provide your name/email and an email of your success partner and we'll make sure they get your results!" data-original-title="Share Your Progress With Your Success Partner">Accountability</li>
+        <form>
+          <input type="text" class="input-small" placeholder="my name" required="required"/>
+          <input type="text" class="input-small" placeholder="my email" required="required"/>
+          <input type="text" class="input-small" placeholder="send to email" required="required"/>
+          <button type="submit" class="btn">Send an email</button>
+        </form>
+      </ul>
+    </div>
+    <div class="well sidebar-nav">
+      <ul class="nav nav-list">
+        <li class="nav-header">Usage Statistics</li>
+        <li>Not enough users yet for useful data</li>
       </ul>
     </div>
   </div>
@@ -39,7 +44,7 @@
   <h2>{{order}}. {{title}}</h2>
   {{#each todos}}
     <label class="checkbox">
-      <input type="checkbox"> {{this}}
+      <input type="checkbox"/> {{this}}
     </label>
   {{/each}}
 </template>

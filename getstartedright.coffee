@@ -1,6 +1,10 @@
 Steps = new Meteor.Collection "Steps"
 
 if Meteor.is_client
+  Meteor.startup ->
+    #Load popovers
+    $('#accountability').popover {'placement': 'left'}
+
   Template.gameplan.greeting = ->
     "Our core purpose is to help people achieve their goals and enjoy a healthy, fulfilling life. To achieve this core purpose, Team Beachbody Coaches engage in six core activities:"
 
