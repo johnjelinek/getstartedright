@@ -2,7 +2,7 @@ Steps = new Meteor.Collection "Steps"
 
 if Meteor.is_client
   Meteor.startup ->
-    #Load popovers
+    # Load popovers
     $('#accountability').popover {'placement': 'left'}
 
     ###
@@ -32,60 +32,51 @@ if Meteor.is_client
   Template.gameplan.steps = ->
     Steps.find {}, {"sort": {"order": 1}}
 
-  Template.gameplan.events = 
-    'click button': ->
+  Template.gameplan.events =
+    'click #sendAnEmail': ->
       myEmail = $('#myEmail').val()
       sendToEmail = $('#sendToEmail').val()
       myName = $('#myName').val()
 
       if myEmail > "" and sendToEmail > "" and myName > ""
+        # Gather stats
+        stats = []
+
+        $('.step').each (index) ->
+          # Step
+          queryStr = {
+            "name": "step0" + index,
+            "content": $('h2', this).text()
+          }
+          stats.push queryStr
+
+          # Possible
+          queryStr = {
+            "name": "schedule_time0" + index,
+            "content": "Possible marks: " + $('input[type=checkbox]', this).length
+          }
+          stats.push queryStr
+
+          # Completed
+          queryStr = {
+            "name": "schedule_title0" + index,
+            "content": "Completed marks: " + $('input:checked', this).length
+          }
+          stats.push queryStr
+
+        # Totals
+        stats.push {
+          "name": "lower_body_content",
+          "content": "Total completed marks: " + $('input:checked').length + " of " + $('input[type=checkbox]').length
+        }
+
         $.ajax {
           "type": "POST",
           "url": "https://mandrillapp.com/api/1.0/messages/send-template.json",
           "data": {
             "key": "5a95d1f1-4cec-4ac3-8d7e-e69d0748f3d9",
             "template_name": "Game Plan Updates",
-            "template_content":[
-              {
-                "name": "schedule_time00",
-                "content": "Possible marks: 3"
-              }, {
-                "name": "schedule_title00",
-                "content": "Completed marks: 3"
-              }, {
-                "name": "schedule_time01",
-                "content": "Possible marks: 4"
-              }, {
-                "name": "schedule_title01",
-                "content": "Completed marks: 4"
-              }, {
-                "name": "schedule_time02",
-                "content": "Possible marks: 4"
-              }, {
-                "name": "schedule_title02",
-                "content": "Completed marks: 4"
-              }, {
-                "name": "schedule_time03",
-                "content": "Possible marks: 4"
-              }, {
-                "name": "schedule_title03",
-                "content": "Completed marks: 4"
-              }, {
-                "name": "schedule_time04",
-                "content": "Possible marks: 4"
-              }, {
-                "name": "schedule_title04",
-                "content": "Completed marks: 4"
-              }, {
-                "name": "schedule_time05",
-                "content": "Possible marks: 4"
-              }, {
-                "name": "schedule_title05",
-                "content": "Completed marks: 4"
-              }, {
-                "name": "lower_body_content",
-                "content": "Total Copleted marks: 23 out of 23"
-              }],
+            "template_content": stats,
             "message": {
               "subject": "GamePlan Status Update",
               "from_email": "admin@johnjelinek.com",
@@ -99,9 +90,9 @@ if Meteor.is_client
           }
         }
 
-        $('#emailModal').modal()
+        $('#emailModal').modal() # Display Modal
 
-        false
+        false # Prevent Post-Back
 
 if Meteor.is_server
   Meteor.startup ->

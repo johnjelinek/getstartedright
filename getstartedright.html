@@ -40,7 +40,7 @@
           <input type="text" id="myName" class="input-small" placeholder="my name" required="required"/>
           <input type="text" id="myEmail" class="input-small" placeholder="my email" required="required"/>
           <input type="text" id="sendToEmail" class="input-small" placeholder="send to email" required="required"/>
-          <button type="submit" class="btn">Send an email</button>
+          <button type="submit" id="sendAnEmail" class="btn">Send an email</button>
         </form>
       </ul>
     </div>
@@ -57,9 +57,13 @@
   <div class="step">
     <h2>{{order}}. {{title}}</h2>
     {{#each todos}}
-      <label class="checkbox">
-        <input type="checkbox" class="todo"/> {{this}}
-      </label>
+      {{> todo}}
     {{/each}}
   </div>
+  </template>
+
+<template name="todo">
+  <label class="checkbox todo">
+    <input type="checkbox"/> {{this}}
+  </label>
 </template>
