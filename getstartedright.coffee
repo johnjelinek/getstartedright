@@ -45,21 +45,37 @@ if Meteor.is_client
         $('.step').each (index) ->
           # Step
           queryStr = {
-            "name": "step0" + index,
+            "name": "step_0" + index,
             "content": $('h2', this).text()
+          }
+          stats.push queryStr
+
+          # Todos
+          todoArray = []
+
+          $('.todo', this).each ->
+            if $('input[type=checkbox]', this).is(':checked')
+              todoArray.push "<span style='line-height: 150%; color: #B30F0F; font-family: Verdana; text-decoration: line-through;'>*" +$(this).text().trim() + "</span>"
+
+            else
+              todoArray.push "<span style='line-height: 150%; color: #505050; font-family: Verdana;'>*" + $(this).text().trim() + "</span>"
+
+          queryStr = {
+            "name": "todos_0" + index,
+            "content": todoArray.join("<br />")
           }
           stats.push queryStr
 
           # Possible
           queryStr = {
-            "name": "schedule_time0" + index,
+            "name": "possible_marks0" + index,
             "content": "Possible marks: " + $('input[type=checkbox]', this).length
           }
           stats.push queryStr
 
           # Completed
           queryStr = {
-            "name": "schedule_title0" + index,
+            "name": "completed_marks0" + index,
             "content": "Completed marks: " + $('input:checked', this).length
           }
           stats.push queryStr
